@@ -1,4 +1,4 @@
-# Voice Authentication Mechanism for Secure Voice Calls
+# Enhancing Real-Time Voice Authentication
 =====================================================
 
 This project, developed as a senior project for California Polytechnic State University, aims to create a robust voice authentication mechanism for secure voice calls. The primary objective is to design a system that can accurately differentiate between genuine and spoofed audio clips, as well as identify individual speakers. This project serves as a proof of concept of a multi-model method of authenticating an individual through passive liveness detecion.
@@ -6,12 +6,16 @@ This project, developed as a senior project for California Polytechnic State Uni
 ## Background
 ------------
 
-Voice authentication is a critical aspect of secure communication, particularly in voice calls. Spoofed audio can compromise the security and integrity of voice calls, making it essential to develop a reliable authentication mechanism. The ASV Spoof Challenge, a widely recognized benchmark for voice authentication, provides a comprehensive dataset for training and evaluating voice authentication models.
+Voice spoofing poses a major risk to systems that rely on voice authentication. Attackers can manipulate or fabricate voices to impersonate individuals, bypassing traditional security checks. This project utilizes deep learning techniques to mitigate this threat by detecting spoofed speech and verifying a speaker's identity in real-time during voice calls.
+
+Objectives:
+1. Develop a spoofed speech detection model to differentiate between genuine and spoofed audio.
+2. Build a speaker verification model to authenticate the identity of a target speaker.
 
 ## Methodology
 -------------
 
-To achieve the project's objectives, I employed a machine learning-based approach, leveraging the Wav2Vec model, a state-of-the-art speech processing model developed by Facebook. I fine-tuned two pre-trained Wav2Vec models on the ASV Spoof Challenge dataset, which contains a diverse range of genuine and spoofed audio clips.
+The ASVSpoof2019 dataset was selected for its relevance in detecting spoofed speech, offering a comprehensive range of labeled audio files that supported efficient model training and evaluation. Initial attempts with a custom Siamese network proved ineffective, leading to a pivot towards the Wav2Vec2 model, which excels in extracting detailed audio features for tasks like spoof detection. Wav2Vec2's pre-trained architecture enabled effective fine-tuning for distinguishing between genuine and spoofed speech, as well as target versus non-target speakers. Key tools like AWS SageMaker, Hugging Face, and Amazon S3 were leveraged to streamline model training, deployment, and feature extraction.
 
 ### Model 1: Wav2Vec2 Spoof Detection
 
@@ -23,30 +27,15 @@ To achieve the project's objectives, I employed a machine learning-based approac
 * Fine-tuned to differentiate target and non-target speakers
 * Trained using a binary classification approach
 
-## Implementation
---------------
-
-The implementation of the project involved the following steps:
-
-1. **Data Preprocessing**: The ASV Spoof Challenge dataset was preprocessed to extract relevant features, such as mel-frequency cepstral coefficients (MFCCs) and spectrograms.
-2. **Model Fine-tuning**: The pre-trained Wav2Vec models were fine-tuned on the preprocessed dataset using a combination of transfer learning and domain adaptation techniques.
-3. **Model Evaluation**: The fine-tuned models were evaluated using metrics such as accuracy, precision, and recall.
 
 ## Results
 --------
 
-The fine-tuned Wav2Vec models demonstrated excellent performance in differentiating between genuine and spoofed audio clips, as well as identifying individual speakers. The results showed that the models can achieve high accuracy, precision, and recall, indicating their potential for real-world applications.
+This project aimed to develop a real-time voice authentication system to combat the rising threat of spoofing scams in telecommunications. The primary objective was to leverage machine learning to provide speaker verification, particularly for identifying a target speaker in live voice calls, with a strong emphasis on detecting spoofed speech.
 
-## Future Work
--------------
+Within the project's timeframe, I was able to create two distinct but related models trained to perform binary classification tasks. The first model focused on detecting spoofed speech versus genuine speech, while the second model was designed to differentiate between a specific target speaker and non-target speakers. In evaluating the performance of the models developed for speaker authentication, significant insights emerge regarding their alignment with the initial project goal and their real-world applicability.
 
-While the project has achieved promising results, there are several avenues for future work:
+For the spoofed versus genuine speech model, the training results show a high degree of effectiveness in distinguishing between authentic and spoofed audio. The model demonstrated a substantial improvement in key metrics over time, reflecting its capability to accurately classify speech and detect spoofing attempts. The decrease in evaluation loss and the substantial increase in accuracy indicate that the model successfully refined its predictions and achieved near-perfect classification. Furthermore, high precision and recall values suggest that the model not only correctly identified spoofed speech with minimal false positives but also captured nearly all instances of spoofed speech, making it highly effective for the intended authentication task.
 
-1. **Model Optimization**: Further optimization of the fine-tuned models can be explored to improve their performance.
-2. **Multi-Modal Fusion**: Fusing multiple modalities, such as audio and visual features, can enhance the robustness of the voice authentication mechanism.
-3. **Real-World Deployment**: The developed models can be integrated into real-world applications, such as voice assistants or secure communication systems.
+On the other hand, the target versus non-target speaker model exhibited notable improvements during training, though it faced some challenges. While there was a clear enhancement in performance metrics such as loss, accuracy, precision, and recall, the model did not reach the same level of effectiveness as the spoofed versus genuine model. The final performance, although better than initial results, indicates that the model still struggled with accurately identifying target speakers and may have missed some instances. This suggests that further refinement and additional training data could enhance its reliability.
 
-## Conclusion
-----------
-
-This project demonstrates the potential of fine-tuned Wav2Vec models for voice authentication. The developed models can accurately differentiate between genuine and spoofed audio clips, as well as identify the target speaker. The project's results have implications for secure voice calls and can be extended to various applications, including voice assistants and secure communication systems.
